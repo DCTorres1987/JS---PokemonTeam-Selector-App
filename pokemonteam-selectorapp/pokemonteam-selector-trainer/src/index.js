@@ -1,2 +1,3 @@
 const app = new AppContainer
-app.getPokemons()
+app.getPokemons();
+app.bindEventListeners();
