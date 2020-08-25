@@ -1,1 +1,2 @@
-console.log('loaded')
+const app = new AppContainer
+app.getPokemons()
