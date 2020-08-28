@@ -2,64 +2,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Pokemon Team Selector</title>
+    <link rel="stylesheet" href="src/stylesheet/team.css" />
 </head>
 <body>
-    <label for="normal">Normal</label>
-    <select name="" id="normal">Normal</select>
+    <audio controls><source src="src/mp3/pokemon_go_trap_ac.mp3" type ="audio/mpeg"></audio>
 
-    <label for="grass">Grass</label>
-    <select name="" id="grass">Grass</select>
+    <div class="container">        
+        <h1>Pokemon Team Generator</h1>
+        <div class="center"><button>Generate Team</button></div>
+        <ul id="team"></ul>
+    </div>
 
-    <label for="fighting">Fighting</label>
-    <select name="" id="fighting">Fighting</select>
+    <button class="open-button" onclick="openForm()">Open Form</button>
 
-    <label for="poison">Poison</label>
-    <select name="" id="poison">Poison</select>
+    <div class="form-popup" id="myForm">
+        <form class="form-container">
+          <h2>Add A New Pokemon</h2>
+      
+          <label for="new-pokemon"><b>New Pokemon</b></label>
+          <input type="text" placeholder="Enter Pokemon Name" name="name" >
+      
+          <label for="image"><b>Image URL</b></label>
+          <input type="text" placeholder="Enter Pokemon Image URL" name="image" >
 
-    <label for="ground">Ground</label>
-    <select name="" id="ground">Ground</select>
+          <label for="type"><b>Pokemon Type</b></label>
+          <input type="text" placeholder="Enter Pokemon Type" name="type" >
+      
+          <button type="submit" class="btn">Submit</button>
+          <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+      </div>
 
-    <label for="rock">Rock</label>
-    <select name="" id="rock">Rock</select>
+      <script>
+        function openForm() {
+          document.getElementById("myForm").style.display = "block";
+        }
+        
+        function closeForm() {
+          document.getElementById("myForm").style.display = "none";
+        }
+      </script>
 
-    <label for="bug">Bug</label>
-    <select name="" id="bug">Bug</select>
-
-    <label for="ghost">Ghost</label>
-    <select name="" id="ghost">Ghost</select>
-
-    <label for="steel">Steel</label>
-    <select name="" id="steel">Steel</select>
-
-    <label for="fire">Fire</label>
-    <select name="" id="fire">Fire</select>
-
-    <label for="water">Water</label>
-    <select name="" id="water">Water</select>
-
-    <label for="electric">Electric</label>
-    <select name="" id="electric">Electric</select>
-
-    <label for="psychic">Psychic</label>
-    <select name="" id="psychic">Psychic</select>
-
-    <label for="ice">Ice</label>
-    <select name="" id="ice">Ice</select>
-
-    <label for="dragon">Dragon</label>
-    <select name="" id="dragon">Dragon</select>
-
-    <label for="fairy">Fairy</label>
-    <select name="" id="fairy">Fairy</select>
-
-    <label for="dark">Dark</label>
-    <select name="" id="dark">Dark</select>
-
-    <button id="createTeam">Generate Pokemon Team</button>
-    <div id="team"></div>
-    <script src="src/team.js"></script>
-    <script src="src/pokemon.js"></script>
     <script src="src/appContainer.js"></script>
     <script src="src/index.js"></script>
 </body>

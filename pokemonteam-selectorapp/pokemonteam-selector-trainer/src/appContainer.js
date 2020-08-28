@@ -1,131 +1,44 @@
 class AppContainer {
-    // static method for a class
-    static pokemons = []
-    static categories = []
-    static team = {}
-    // set as the localhost url
-    url = "http://localhost:3000"
-    // static method for a class
     
+  
+    team = document.getElementById('team');
 
-    // create an event listener on button
-    bindEventListeners() {
-        // retrieves createTeam button set as const variable (can't be reassigned)
-        // creates an click event listener on button runs gerRandomPokemons funcion and binds to App Container 
-        const btn = document.getElementById('createTeam');        
-        btn.addEventListener('click', this.getRandomPokemons)
-    }
-
-    getRandomPokemons() {
-        let randomPokemons = [];
-        AppContainer.categories.forEach(category => {
-            randomPokemons.push(Pokemon.byCategory(category.name)[Math.floor(Math.random()*Pokemon.byCategory(category.name).length)])
-        });
-
-        // instantiate a Pokemon Team instance with random pokemon
-        new Team(randomPokemons)
-        const teamDiv = document.getElementById('team');
-        AppContainer.team.pokemons.forEach(team => {
-            const pokemonImg = document.createElement('img');
-            pokemonImg.src = team.image;
-            teamDiv.appendChild(pokemonImg);
-        })
-    }
-
-
-     getPokemons() {
-        // make a fetch request to /pokemons
-        fetch(this.url + '/pokemons')
+   
+    // retrieve a pokemon json data passed in from backend api
+    getPokemons() {
+        fetch("http://localhost:3000/pokemons")
         .then(resp => resp.json())
         .then(data => {
-            console.log(AppContainer.pokemons)          
-                    // populate the pokemons and categories properties with the returned data
-            data.forEach(pokemon => {      
+         let randomPokemon = []
 
-                new Pokemon(pokemon.name, pokemon.image, pokemon.category.name)
-            });
-            // call renderPokemons
-            this.renderPokemons();
-        })
+            for (let i=0; i< 4; i++) {
+                randomPokemon.push(data[Math.floor(Math.random()*data.length)]);
+            };
 
-        .catch(err => alert(err));
-    };
+            const pokemonHTMLString = randomPokemon.map( pokemon =>  `
+                    <li class="card">
+                        <img src = "${pokemon.image}"/>
+                        <h2>${pokemon.name}</h2>
+                        <p>Type: ${pokemon.category.name}
+                    </li>
+                `).join('');      
+                team.innerHTML = pokemonHTMLString      
+            })
+        .catch(err => alert(err))
+        
+    }
 
-    renderPokemons() {
-        // create DOM nodes and insert data into them to render in DOM
-        const grassSelect = document.getElementById('grass');
-        const normalSelect = document.getElementById('normal'); 
-        const fightingSelect = document.getElementById('fighting');
-        const poisonSelect = document.getElementById('poison');
-        const groundSelect = document.getElementById('ground');
-        const rockSelect = document.getElementById('rock');
-        const bugSelect = document.getElementById('bug');
-        const ghostSelect = document.getElementById('ghost');
-        const steelSelect = document.getElementById('steel');
-        const fireSelect = document.getElementById('fire');
-        const waterSelect = document.getElementById('water');
-        const electricSelect = document.getElementById('electric');
-        const psychicSelect = document.getElementById('psychic');
-        const iceSelect = document.getElementById('ice');
-        const fairySelect = document.getElementById('fairy');
-        const darkSelect = document.getElementById('dark');
+    addPokemon() {
+        console.log('Listening')
+    }
 
-        AppContainer.pokemons.forEach(pokemon => {
-            const option = document.createElement('option'); 
-                       
-            option.innerText = pokemon.name;
+    EventListeners() {
+        const addBtn = document.querySelector('button');
+        const submitBtn = document.querySelector('button.btn');
+        addBtn.addEventListener('click', this.getPokemons);
+        submitBtn.addEventListener('click', this.addPokemon);
+    }
 
-            const img = document.createElement('img');
-            // option.src = pokemon.image;
-            // where we append it will be conditional based on the pokemon type chosen
-            switch(pokemon.category){
-                case "normal":
-                        normalSelect.appendChild(option);
-                    break;
-                case "grass":
-                        grassSelect.appendChild(option);
-                    break;
-                case "fighting":
-                        fightingSelect.appendChild(option);
-                    break;
-                case "poison":
-                        poisonSelect.appendChild(option);
-                    break;
-                case "ground":
-                        groundSelect.appendChild(option);
-                    break;
-                case "rock":
-                        rockSelect.appendChild(option);
-                break;
-                case "bug":
-                        bugSelect.appendChild(option);
-                break;
-                case "ghost":
-                        ghostSelect.appendChild(option);
-                break;
-                case "steel":
-                        steelSelect.appendChild(option);
-                break;
-                case "fire":
-                        fireSelect.appendChild(option);
-                break; 
-                case "electric":
-                        electricSelect.appendChild(option);
-                break;
-                case "psychic":
-                        psychicSelect.appendChild(option);
-                break;
-                case "ice":
-                        iceSelect.appendChild(option);
-                break;
-                case "fairy":
-                        fairySelect.appendChild(option);
-                break;
-                case "dark":
-                        darkSelect.appendChild(option);
-                break;
-                default:
-            }
-        })
-    };
+
+   
 }
