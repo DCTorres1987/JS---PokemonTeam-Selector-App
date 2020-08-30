@@ -1,6 +1,6 @@
 class Team {
-    constructor(pokemons) {
-        this.pokemons = pokemons;
-        AppContainer.team = this;
+    constructor(name) {
+        this.name = name;
+        AppContainer.teams.push(this);
     }
 }

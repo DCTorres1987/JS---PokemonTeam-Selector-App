@@ -12,16 +12,17 @@
 
 ActiveRecord::Schema.define(version: 2020_08_24_010938) do
 
-  create_table "categories", force: :cascade do |t|
+  create_table "pokemons", force: :cascade do |t|
     t.string "name"
+    t.string "image"
+    t.string "poke_type"
+    t.integer "team_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "pokemons", force: :cascade do |t|
+  create_table "teams", force: :cascade do |t|
     t.string "name"
-    t.string "image"
-    t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

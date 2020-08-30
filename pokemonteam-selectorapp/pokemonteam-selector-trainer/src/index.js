@@ -1,2 +1,4 @@
 const app = new AppContainer
-app.EventListeners()
+app.getPokemons()
+app.bindEventListeners()
+app.addNewTeam()

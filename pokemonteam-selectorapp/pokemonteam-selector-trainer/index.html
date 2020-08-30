@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Pokemon Team Selector</title>
+    <link rel="stylesheet" href="src/stylesheet/teamform.css" />
+    <link rel="stylesheet" href="src/stylesheet/pokemonform.css" />
     <link rel="stylesheet" href="src/stylesheet/team.css" />
 </head>
 <body>
@@ -11,40 +13,66 @@
 
     <div class="container">        
         <h1>Pokemon Team Generator</h1>
-        <div class="center"><button>Generate Team</button></div>
+        <div class="center"><button>Pokemon Team</button></div>
+        <label for="team"><b>Team</b></label>
+        <select id="option"></select>
         <ul id="team"></ul>
     </div>
 
-    <button class="open-button" onclick="openForm()">Open Form</button>
+    <button class="open-button-p" onclick="openPokemonForm()">Add A Pokemon</button>
 
-    <div class="form-popup" id="myForm">
-        <form class="form-container">
-          <h2>Add A New Pokemon</h2>
-      
+    <div class="form-popup-pokemon" id="myPokemonForm">
+        <form class="form-container-pokemon">
+          <h2>Add Pokemon</h2>
+
           <label for="new-pokemon"><b>New Pokemon</b></label>
-          <input type="text" placeholder="Enter Pokemon Name" name="name" >
+          <input type="text" id="pokename" placeholder="Enter Pokemon Name" name="pokename" >
       
           <label for="image"><b>Image URL</b></label>
           <input type="text" placeholder="Enter Pokemon Image URL" name="image" >
 
           <label for="type"><b>Pokemon Type</b></label>
-          <input type="text" placeholder="Enter Pokemon Type" name="type" >
+          <input type="text"  placeholder="Enter Pokemon Type" name="type" >
       
-          <button type="submit" class="btn">Submit</button>
-          <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
+          <button type="submit" id=1 class="btn">Submit</button>
+          <button type="submit" class="btn cancel" onclick="closePokemonForm()">Close</button>
+        </form>
+      </div>
+
+      <button class="open-button-t" onclick="openTeamForm()">Add A Team</button>
+
+      <div class="form-popup-team" id="myTeamForm">
+        <form class="form-container-team">
+          <h2>Add Team</h2>
+          <label for="new-pokemon"><b>Add New Team</b></label>
+          <input type="text" id="teamname" placeholder="Enter Your Team Name" name="teamname" >
+      
+          <button type="submit" id =2 class="btn">Submit</button>
+          <button type="submit" class="btn cancel" onclick="closeTeamForm()">Close</button>
         </form>
       </div>
 
       <script>
-        function openForm() {
-          document.getElementById("myForm").style.display = "block";
+        function openPokemonForm() {
+          document.getElementById("myPokemonForm").style.display = "block";
         }
         
-        function closeForm() {
-          document.getElementById("myForm").style.display = "none";
+        function closePokemonForm() {
+          document.getElementById("myPokemonForm").style.display = "none";
         }
       </script>
-
+            <script>
+              function openTeamForm() {
+                document.getElementById("myTeamForm").style.display = "block";
+              }
+              
+              function closeTeamForm() {
+                document.getElementById("myTeamForm").style.display = "none";
+              }
+      </script>
+    <script src="src/newTeam.js"></script>
+    <script src="src/team.js"></script>
+    <script src="src/pokemon.js"></script>
     <script src="src/appContainer.js"></script>
     <script src="src/index.js"></script>
 </body>
