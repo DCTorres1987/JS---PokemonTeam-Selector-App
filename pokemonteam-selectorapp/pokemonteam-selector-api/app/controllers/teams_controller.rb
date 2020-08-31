@@ -8,4 +8,5 @@ class TeamsController < ApplicationController
         team = Team.create(name: params[:name])
         render :json => team
     end
+
 end

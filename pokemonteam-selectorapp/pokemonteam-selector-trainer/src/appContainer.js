@@ -7,13 +7,11 @@ class AppContainer {
     static teams = []
     static newTeam = []
     url = "http://localhost:3000/pokemons"
+    teamurl = "http://localhost:3000/teams"
 
 
     bindEventListeners() {
-        
-        const addBtn = document.querySelector('button');
-        addBtn.addEventListener('click', () => this.getRandomPokemons()); 
-        
+              
         const teamForm = document.getElementById('teamform');
         teamForm.addEventListener('submit', () => this.createNewTeam(event));
     }
@@ -101,7 +99,7 @@ class AppContainer {
         event.preventDefault();
           
         let team = new Team(event.target.teamname.value);
- 
+
         let randomPokemons = [];
         for (let i=0; i< 4; i++) {      
            randomPokemons.push(AppContainer.pokemons[Math.floor(Math.random()*AppContainer.pokemons.length)]);
@@ -109,16 +107,16 @@ class AppContainer {
         
         new NewTeam(randomPokemons);
 
-                fetch (this.url, {
-                    method: "POST",
-                    headers: {'Content-type': 'application/json'},
-                    body: JSON.stringify({
-                      name: team.name
-                    })
-                  })
-                    .then(r => console.log(r))
-                    .catch(err => console.log(err))
-    
+        fetch ("http://localhost:3000/teams", {
+            method: "POST",
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                name: team.name
+            })
+            })
+            .then(resp => resp.json())
+            .catch(err => console.log(err))
+       
         randomPokemons.forEach(pokemon => {
           new Pokemon(pokemon.id, pokemon.name, pokemon.image, pokemon.poke_type, team)
 
@@ -132,7 +130,7 @@ class AppContainer {
               team: team.name
             })
           })
-            .then(r => console.log(r))
+            .then(resp => resp.json())
             .catch(err => console.log(err))
         })
 
