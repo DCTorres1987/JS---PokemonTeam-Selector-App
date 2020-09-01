@@ -1,5 +1,5 @@
 let team = document.getElementById('team'); 
-let selectTeam = document.getElementById('option');
+let selectedTeam = document.querySelector('select');
 
 class AppContainer {
     
@@ -37,8 +37,8 @@ class AppContainer {
     // ______________________________________________________________________________
     // retrieves pokemon and render them to DOM 
     renderPokemon () {
-
         let selectedTeam = document.getElementById('option').value;
+  
         let pokemonOnTeam = [];
         team.innerHTML = "";
 
@@ -47,25 +47,62 @@ class AppContainer {
                     pokemonOnTeam.push(pokemon)
                 }
             })        
+       
+        pokemonOnTeam.forEach( pokemon => {
+
+        let div = document.createElement('div');
+        div.className = "card";
+
+        let img = document.createElement('img');
+        img.src = pokemon.image; 
+
+        let h2 = document.createElement('h2');
+        h2.innerText = pokemon.name;
+
+        let p = document.createElement('p');
+        p.innerText = 'Type: ' + pokemon.poke_type;
+
+        let br1 = document.createElement('br');
+        let br2 = document.createElement('br');
+
+        let deletebtn = document.createElement('button');
+        deletebtn.type = 'delete';
+        deletebtn.id = pokemon.id;
+        deletebtn.className = 'deletebtn';
+        deletebtn.innerText = 'Delete';
+
+
+        team.appendChild(div);
+        div.appendChild(img);
+        div.appendChild(h2);
+        div.appendChild(p);
+        div.appendChild(br1);
+        div.appendChild(br2);
+        div.appendChild(deletebtn);
+
         
-        const pokemonHTMLString = pokemonOnTeam.map( pokemon =>       
-            `
-                    <div class="card" id =${pokemon.id}>
-                        <img src = "${pokemon.image}"/>
-                        <h2>${pokemon.name}</h2>
-                        <p>Type: ${pokemon.poke_type}</p>
-                        <br><br>
-                        <button type="delete" id=${pokemon.id} class="deletebtn">Delete</button>
-                    </div>
-               `       
-        ).join('');
+        })    
+
+
+
+            // `
+            //         <div class="card" id =${pokemon.id}>
+            //             <img src = "${pokemon.image}"/>
+            //             <h2>${pokemon.name}</h2>
+            //             <p>Type: ${pokemon.poke_type}</p>
+            //             <br><br>
+            //             <button type="delete" id=${pokemon.id} class="deletebtn">Delete</button>
+            //         </div>
+            //    `       
            
-           team.innerHTML = pokemonHTMLString
+        //    team.innerHTML = pokemonHTMLString
 
 //Below Handles Delete    
 // ______________________________________________________________________________
-        const deleteBtn = document.querySelectorAll('.deletebtn');
-        deleteBtn.forEach( button => {
+
+    const deletebtns = document.querySelectorAll('.deletebtn');
+
+        deletebtns.forEach( button => {
             button.addEventListener("click", (e) => {
 
             let targetId = e.target.id
@@ -83,12 +120,13 @@ class AppContainer {
                         })
                         .catch(err => alert(err))
                     }
-                })
-                this.renderPokemon;          
+                }) 
+     
             })
 
         })   
     }
+    
 // ______________________________________________________________________________
 
  // Below handles Teams Submit Form
@@ -97,16 +135,16 @@ class AppContainer {
     createNewTeam(event) {
         
         event.preventDefault();
-          
+        // creates a new team instance prototype property object and saves to variable
+        
         let team = new Team(event.target.teamname.value);
-
-        let randomPokemons = [];
+        const randomPokemons = [];
+        // pushes 4 random pokemons into new array;
         for (let i=0; i< 4; i++) {      
            randomPokemons.push(AppContainer.pokemons[Math.floor(Math.random()*AppContainer.pokemons.length)]);
         };
-        
-        new NewTeam(randomPokemons);
 
+        // post new team to the api
         fetch ("http://localhost:3000/teams", {
             method: "POST",
             headers: {'Content-type': 'application/json'},
@@ -115,69 +153,91 @@ class AppContainer {
             })
             })
             .then(resp => resp.json())
+            .then(data => console.log(data))
             .catch(err => console.log(err))
        
+        // iterates through randomPokemon and post new pokemon associated with new team
         randomPokemons.forEach(pokemon => {
-          new Pokemon(pokemon.id, pokemon.name, pokemon.image, pokemon.poke_type, team)
 
-          fetch (this.url, {
-            method: "POST",
-            headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({
-              name: pokemon.name,
-              image: pokemon.image,
-              poke_type: pokemon.poke_type,
-              team: team.name
-            })
-          })
-            .then(resp => resp.json())
-            .catch(err => console.log(err))
+            setTimeout(function(){
+                
+                new Pokemon(pokemon.id, pokemon.name, pokemon.image, pokemon.poke_type, team)
+
+                fetch ("http://localhost:3000/pokemons", {
+                    method: "POST",
+                    headers: {'Content-type': 'application/json'},
+                    body: JSON.stringify({
+                    name: pokemon.name,
+                    image: pokemon.image,
+                    poke_type: pokemon.poke_type,
+                    team: team
+                    })
+
+                })
+                    .then(resp => resp.json())
+                    .then(data => console.log(data))
+                    .catch(err => console.log(err))
+            },500)
         })
 
     // _____________________________________________________________________________
-        const pokeTeams = []
+        const pokeTeams = [];
+        selectedTeam.innerHTML = "";
 
         AppContainer.pokemons.forEach(pokemon => {
-      
+          
             if (!pokeTeams.includes(pokemon.team.name))
                  { pokeTeams.push(pokemon.team.name)
                 }
         });
 
-        const teamHTMLString = pokeTeams.map( team=>     
-            `<option value="${team}">${team}</option>`
-        ).join('');
-        // save teamHTMLString to Select tag in index html
-        selectTeam.innerHTML = teamHTMLString
+        
 
-        const option = document.getElementById('option');
-        option.addEventListener('change', this.renderPokemon); 
+        pokeTeams.map( team => {
+          
+        let option = document.createElement('option');
+
+            option.value = team;
+            option.className = "team";
+            option.innerText = team;
+
+            selectedTeam.appendChild(option);
+        })
+        
+        // save teamHTMLString to Select tag in index html
     }
     // ____________________________________________________________________________ 
     
     // retrieves team and render to the DOM (POST)
     // ______________________________________________________________________________
     renderTeam() { 
-        const pokeTeams = []
+        const pokeTeams = [];
+        selectedTeam.innerHTML = "";
 
         // Take teams and iterate through the array
         // Only unique names are pushed into array
         AppContainer.teams.forEach(team => {
-        
+  
             if (!pokeTeams.includes(team.name))
                 { pokeTeams.push(team.name)
                 }
-        });
+        }); 
         // create a new variable and store Teams HTML
         // iterate through pokeTeams array and store Option HTML with team name save in value
-        const teamHTMLString = pokeTeams.map( team=>     
-            `<option value="${team}">${team}</option>`
-        ).join('');
+        pokeTeams.map( team=>  {   
+          let option = document.createElement('option');
+
+            option.value = team;
+            option.className = "team";
+            option.innerText = team;
+
+            selectedTeam.appendChild(option);
+        });
 
         // save teamHTMLString to Select tag in index html
-        selectTeam.innerHTML = teamHTMLString
+        // selectTeam.appendChild(option);
 
-        const option = document.getElementById('option');
+        let option = document.getElementById('option');
         option.addEventListener('change', this.renderPokemon);        
     };
 

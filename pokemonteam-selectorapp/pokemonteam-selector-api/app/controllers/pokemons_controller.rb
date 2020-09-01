@@ -5,7 +5,9 @@ class PokemonsController < ApplicationController
     end    
 
     def create
-        team = Team.find_by(name: params[:team])
+        
+        team = Team.find_by(name: params[:team][:name]);
+
         pokemon = Pokemon.create(name: params[:name], image: params[:image], poke_type: params[:poke_type], team: team)
         render :json => pokemon
     end
