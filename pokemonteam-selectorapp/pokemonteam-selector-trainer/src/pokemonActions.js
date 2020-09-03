@@ -7,36 +7,34 @@ class PokemonActions {
         const randomPokemons = [];
 
 
-        for (let i=0; i< 4; i++) {      
+        for (let i=0; i< 2; i++) {      
             randomPokemons.push(AppContainer.pokemons[Math.floor(Math.random()*AppContainer.pokemons.length)]);
         };
 
+            randomPokemons.forEach( (pokemon) =>                   
+                setTimeout(function() {
 
-        randomPokemons.map(pokemon => {                   
+                    fetch ("http://localhost:3000/pokemons", {
+                        method: "POST",
+                        headers: {'Content-type': 'application/json'},
+                        body: JSON.stringify({
+                        name: pokemon.name, 
+                        image: pokemon.image,
+                        poke_type: pokemon.poke_type,
+                        team: teamInt,
+                        })
 
-            fetch ("http://localhost:3000/pokemons", {
-                method: "POST",
-                headers: {'Content-type': 'application/json'},
-                body: JSON.stringify({
-                name: pokemon.name,
-                image: pokemon.image,
-                poke_type: pokemon.poke_type,
-                team: teamInt
-                })
-
-            })
-                .then(resp => resp.json())
-                .then(data => {
-                    
-                    console.log(data);
-                    new Pokemon(data.id, data.name, data.image, data.poke_type, teamInt);
-                    
-                })
-                .catch(err => console.log(err))
-           
-        });
-
-        setTimeout(function(){Team.renderNewTeam(teamname)},2000);
+                    })
+                        .then(resp => resp.json())
+                        .then(data => {
+                            console.log(data);
+                            new Pokemon(data.id, data.name, data.image, data.poke_type, teamInt);
+                            
+                        })
+                        .catch(err => console.log(err))
+                })           
+        )
+        setTimeout(function(){Team.renderNewTeam(teamname),4000});
     }   
 
     //Below Handles Delete    

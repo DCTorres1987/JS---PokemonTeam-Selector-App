@@ -5,7 +5,6 @@ class AppContainer {
     
     static pokemons = []
     static teams = []
-    static newTeam = []
     url = "http://localhost:3000/pokemons"
     teamurl = "http://localhost:3000/teams"
 
@@ -22,8 +21,9 @@ class AppContainer {
         fetch(this.url)
         .then(resp => resp.json())
         .then(data => {
-            
+    
             data.forEach(pokemon => {
+                
                 new Pokemon(pokemon.id, pokemon.name, pokemon.image, pokemon.poke_type, pokemon.team);
                 new Team(pokemon.team.name);
             });

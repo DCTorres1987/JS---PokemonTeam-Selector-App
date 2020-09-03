@@ -17,14 +17,12 @@ class TeamActions {
             })
             .then(resp => resp.json())
             .then(data => {
+              
                 console.log(data);
                 PokemonActions.createNewPokemon(data);
-            })
+                
+            })            
             .catch(err => console.log(err))
     }
-
-
-
-
 
 }

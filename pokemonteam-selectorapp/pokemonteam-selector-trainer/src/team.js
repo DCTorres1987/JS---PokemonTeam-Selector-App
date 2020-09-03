@@ -12,12 +12,11 @@ class Team {
 
 
         AppContainer.teams.forEach(team => {
-
+            
             if (!pokeTeams.includes(team.name))
                 { pokeTeams.push(team.name)}
         }); 
     
-
         pokeTeams.map( team=>  {   
           let option = document.createElement('option');
 
@@ -44,6 +43,7 @@ class Team {
     static renderNewTeam (data) {
         let teamname = data;
 
+
         let option = document.createElement('option');
         selectedTeam.innerHTML = "";
 
@@ -54,6 +54,6 @@ class Team {
 
         let load = option.value;
     
-        Pokemon.renderPokemonLoad(load);
+        Team.renderTeamLoad();
     };
 }
