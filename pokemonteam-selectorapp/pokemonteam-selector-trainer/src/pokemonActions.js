@@ -1,40 +1,41 @@
 class PokemonActions {  
     
-    static createNewPokemon (data) {
+    static getRandomPokemon (data) {
 
         let teamname = data.name;
         let teamInt = data;
         const randomPokemons = [];
 
-
-        for (let i=0; i< 2; i++) {      
+        for (let i=0; i< 1; i++) {      
             randomPokemons.push(AppContainer.pokemons[Math.floor(Math.random()*AppContainer.pokemons.length)]);
         };
 
-            randomPokemons.forEach( (pokemon) =>                   
-                setTimeout(function() {
+        let pokemonName = randomPokemons[0].name;
+        let pokemonImage = randomPokemons[0].image;
+        let pokemonType = randomPokemons[0].poke_type;
 
-                    fetch ("http://localhost:3000/pokemons", {
-                        method: "POST",
-                        headers: {'Content-type': 'application/json'},
-                        body: JSON.stringify({
-                        name: pokemon.name, 
-                        image: pokemon.image,
-                        poke_type: pokemon.poke_type,
-                        team: teamInt,
-                        })
+     
+        fetch (url, {
+            method: "POST",
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+            name: pokemonName, 
+            image: pokemonImage,
+            poke_type: pokemonType,
+            team: teamInt,
+            })    
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            console.log(data);
+            new Pokemon(data.id, data.name, data.image, data.poke_type, teamInt);
+            
+        })
+        .catch(err => console.log(err))        
+ 
 
-                    })
-                        .then(resp => resp.json())
-                        .then(data => {
-                            console.log(data);
-                            new Pokemon(data.id, data.name, data.image, data.poke_type, teamInt);
-                            
-                        })
-                        .catch(err => console.log(err))
-                })           
-        )
-        setTimeout(function(){Team.renderNewTeam(teamname),4000});
+        Team.renderNewTeam(teamname);
+        
     }   
 
     //Below Handles Delete    
@@ -45,6 +46,7 @@ class PokemonActions {
         const deletebtns = document.querySelectorAll('.deletebtn');
 
         deletebtns.forEach( button => {
+
             button.addEventListener("click", (e) => {
 
             let targetId = e.target.id
@@ -52,7 +54,7 @@ class PokemonActions {
                 AppContainer.pokemons.forEach(pokemon => {    
 
                     if (parseInt(targetId) === pokemon.id)               
-                        {fetch(`http://localhost:3000/pokemons/${pokemon.id}`, {
+                            {fetch(`http://localhost:3000/pokemons/${pokemon.id}`, {
                             method: "DELETE"
                             })
                             .then(resp => resp.json())

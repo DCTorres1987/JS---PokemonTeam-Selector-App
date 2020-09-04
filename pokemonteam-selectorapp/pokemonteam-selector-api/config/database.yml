@@ -24,4 +24,4 @@ test:
 production:
   <<: *default
   database: db/production.sqlite3
-  timeout: 1000
+  timeout: 300000

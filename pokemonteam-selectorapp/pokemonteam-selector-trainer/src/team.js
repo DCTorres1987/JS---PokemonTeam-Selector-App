@@ -7,9 +7,8 @@ class Team {
     // Handles Initial Team Load
     static renderTeamLoad() { 
 
-        const pokeTeams = [];
-        selectedTeam.innerHTML = "";
-
+        let pokeTeams = [];
+            selectedTeam.innerHTML = "";
 
         AppContainer.teams.forEach(team => {
             
@@ -18,15 +17,13 @@ class Team {
         }); 
     
         pokeTeams.map( team=>  {   
-          let option = document.createElement('option');
 
-            option.value = team;
-            option.className = "team";
-            option.innerText = team;
-
-            selectedTeam.appendChild(option);
+          const option = document.createElement('option');
+                option.value = team;
+                option.className = "team";
+                option.innerText = team;
+                selectedTeam.appendChild(option);
         });
-
 
         // Handles Team Name Select Changes
         // _________________________________________________________________________________
@@ -41,18 +38,15 @@ class Team {
 
     // Renders New Team to the DOM
     static renderNewTeam (data) {
-        let teamname = data;
 
-
-        let option = document.createElement('option');
-        selectedTeam.innerHTML = "";
-
-            option.value = teamname;
-            option.className = "team";
-            option.innerText = teamname;
-            selectedTeam.appendChild(option);
-
-        let load = option.value;
+        const teamname = data;
+        const option = document.createElement('option');        
+              selectedTeam.innerHTML = "";
+              option.value = teamname;
+              option.className = "team";
+              option.innerText = teamname;
+              selectedTeam.appendChild(option);
+        const load = option.value;
     
         Team.renderTeamLoad();
     };

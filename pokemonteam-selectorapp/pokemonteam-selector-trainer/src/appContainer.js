@@ -1,8 +1,9 @@
 let team = document.getElementById('team'); 
 let selectedTeam = document.querySelector('select');
+url = "http://localhost:3000/pokemons";
 
 class AppContainer {
-    
+
     static pokemons = []
     static teams = []
     url = "http://localhost:3000/pokemons"
@@ -18,7 +19,8 @@ class AppContainer {
 
 // Fetches Pokemon Data and Render JSON
     getPokemons() {
-        fetch(this.url)
+ 
+        fetch(url)
         .then(resp => resp.json())
         .then(data => {
     
@@ -30,7 +32,8 @@ class AppContainer {
             // call renderPokemons
             Team.renderTeamLoad();      
         })
-        .catch(err => console.log(err))        
+        .catch(err => console.log(err))    
+      
     };
 
     // Function used in Pokemon Action to Delete Pokemon

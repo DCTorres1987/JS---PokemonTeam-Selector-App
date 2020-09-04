@@ -5,8 +5,8 @@ class TeamsController < ApplicationController
     end
 
     def create
-      
-            team = Team.create(name: params[:name])
+
+            team = Team.find_or_create_by(name: params[:name]);
             render :json => team
     end
 
