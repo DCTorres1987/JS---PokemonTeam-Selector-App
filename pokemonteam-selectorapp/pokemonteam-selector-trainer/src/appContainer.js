@@ -19,7 +19,8 @@ class AppContainer {
 
 // Fetches Pokemon Data and Render JSON
     getPokemons() {
- 
+        console.log('Getting Pokemon Teams for You!');
+
         fetch(url)
         .then(resp => resp.json())
         .then(data => {

@@ -1,24 +1,34 @@
-pokemonteam-selector => where git repository is initialized
-    README.md
-    pokemonteam-selector -api => use rails generator to create dir
-    pokemonteam-selector -trainer
-        index.html => the single page of the app, will load all js that interacts with api
-        src 
-            index.js => top-level js file (where the js starts running)
-            class1.js
-            class2.js
-            class3.js
+# My Pokemon Team Selector Application
 
-The application must be an HTML, CSS, and JavaScript frontend with a Rails API backend. All interactions between the client and the server must be handled asynchronously (AJAX) and use JSON as the communication format.
+## Description
 
-The JavaScript application must use Object Oriented JavaScript (classes) to encapsulate related data and behavior.
+  This project is designed to generate a pokemon team for the user/trainer. This project will have a rails api backend that follows a restful convention and communicates with the frontend built with HTML, CSS, and Javascript.
+  
+## Getting Started
 
-The domain model served by the Rails backend must include a resource with at least one has-many relationship. For example, if you were building an Instagram clone, you might display a list of photos with associated comments.
+Fork and clone this repository to view code and open test.
 
-The backend and frontend must collaborate to demonstrate Client-Server Communication. Your application should have at least 3 AJAX calls, covering at least 2 of Create, Read, Update, and Delete (CRUD). Your client-side JavaScript code must use fetch with the appropriate HTTP verb, and your Rails API should use RESTful conventions.
+### Installation
 
+Open repository in developement environment and navigate to the directory in command line.
 
-AJAX Request
-1. get /pokemons return associated categories
-2. delete (release) from team pokemon/:id
-3. create /pokemon
+* For and clone JS---PokemonTeam-Selector-App from github repository
+* Run 'bundle install' to make sure all the ruby gems are up to date
+* Run 'rake db:migrate' and 'rake db:seed' to create and seed database tables
+* Run 'rails s' and navigate to 'https://localhost:3000' and open index.html
+
+## Built With
+
+* Rails
+* CSS
+* HTML
+* Javascript
+ 
+## Contributing
+Bug reports and pull requests are welcome on GitHub at https://github.com/DCTorres1987/JS---PokemonTeam-Selector-App. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.
+
+## License
+The gem is available as open source under the terms of the MIT License.
+
+## Code of Conduct
+Everyone interacting in the pokemonteam-selectorapp project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the code of conduct.

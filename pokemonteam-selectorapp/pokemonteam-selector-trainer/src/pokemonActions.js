@@ -1,6 +1,7 @@
 class PokemonActions {  
     
     static getRandomPokemon (data) {
+        
 
         let teamname = data.name;
         let teamInt = data;
@@ -29,6 +30,7 @@ class PokemonActions {
         .then(data => {
             console.log(data);
             new Pokemon(data.id, data.name, data.image, data.poke_type, teamInt);
+            console.log(`Welcome ${pokemonName} to the Team!`)
             
         })
         .catch(err => console.log(err))        
@@ -59,7 +61,7 @@ class PokemonActions {
                             })
                             .then(resp => resp.json())
                             .then(data => {
-                                console.log(`Deleted Pokemon ${data.id}`);
+                                console.log(`Goodbye ${pokemon.name}. Be free!`);
                                 AppContainer.delete(data.id);
                                 e.target.parentElement.remove();
 

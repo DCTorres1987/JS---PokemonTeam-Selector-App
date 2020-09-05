@@ -2,8 +2,8 @@ class TeamActions {
 
     // Creates New Team
     static createNewTeam(event) {
-        
-        event.preventDefault();        
+
+            event.preventDefault();        
         if (event.target.teamname.value !== ''){
             let team = new Team(event.target.teamname.value); 
 
@@ -16,7 +16,8 @@ class TeamActions {
             .then(data => {
                 
                 console.log(data);
-                PokemonActions.getRandomPokemon(data);            
+                PokemonActions.getRandomPokemon(data);  
+                console.log(`Welcome ${team.name}!`)          
             })            
             .catch(err => console.log(err))
         } else {alert('Team cannot be blank!')}

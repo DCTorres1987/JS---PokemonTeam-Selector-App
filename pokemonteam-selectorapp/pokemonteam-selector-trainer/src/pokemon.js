@@ -44,6 +44,7 @@ class Pokemon {
 
 
     static renderToDOM(pokemonOnTeam) {
+
       pokemonOnTeam.forEach( pokemon => {
 
         let div = document.createElement('div');

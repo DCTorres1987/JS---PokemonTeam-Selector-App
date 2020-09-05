@@ -6,7 +6,7 @@ class Team {
 
     // Handles Initial Team Load
     static renderTeamLoad() { 
-
+      
         let pokeTeams = [];
             selectedTeam.innerHTML = "";
 
@@ -38,6 +38,7 @@ class Team {
 
     // Renders New Team to the DOM
     static renderNewTeam (data) {
+
 
         const teamname = data;
         const option = document.createElement('option');        
