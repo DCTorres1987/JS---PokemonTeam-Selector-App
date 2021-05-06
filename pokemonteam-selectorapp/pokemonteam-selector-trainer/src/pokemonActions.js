@@ -7,7 +7,7 @@ class PokemonActions {
         let teamInt = data;
         const randomPokemons = [];
 
-        for (let i=0; i< 1; i++) {      
+        for (let i=0; i< 4; i++) {      
             randomPokemons.push(AppContainer.pokemons[Math.floor(Math.random()*AppContainer.pokemons.length)]);
         };
 

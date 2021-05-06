@@ -7,7 +7,7 @@ class TeamActions {
         if (event.target.teamname.value !== ''){
             let team = new Team(event.target.teamname.value); 
 
-            fetch ("http://localhost:3000/teams", {
+            fetch (teamurl, {
             method: "POST",
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({name: team.name})

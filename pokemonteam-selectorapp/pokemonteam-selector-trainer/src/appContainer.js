@@ -1,13 +1,12 @@
 let team = document.getElementById('team'); 
 let selectedTeam = document.querySelector('select');
 url = "http://localhost:3000/pokemons";
+teamurl = "http://localhost:3000/teams";
 
 class AppContainer {
 
     static pokemons = []
     static teams = []
-    url = "http://localhost:3000/pokemons"
-    teamurl = "http://localhost:3000/teams"
 
 
 // Setup Event Listner on Submit Form
